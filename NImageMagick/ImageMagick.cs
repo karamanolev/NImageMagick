@@ -38,19 +38,28 @@ namespace NImageMagick
         public static extern int MagickClearException(IntPtr ptr);
 
         [DllImport(WandDll, CallingConvention = WandConvention)]
-        public static extern uint MagickGetImageCompressionQuality(IntPtr ptr);
+        public static extern int MagickGetImageCompressionQuality(IntPtr ptr);
 
         [DllImport(WandDll, CallingConvention = WandConvention)]
-        public static extern int MagickSetImageCompressionQuality(IntPtr ptr, uint quality);
+        public static extern int MagickSetImageCompressionQuality(IntPtr ptr, int quality);
 
         [DllImport(WandDll, CallingConvention = WandConvention)]
-        public static extern uint MagickGetImageWidth(IntPtr ptr);
+        public static extern int MagickGetImageWidth(IntPtr ptr);
 
         [DllImport(WandDll, CallingConvention = WandConvention)]
-        public static extern uint MagickGetImageHeight(IntPtr ptr);
+        public static extern int MagickGetImageHeight(IntPtr ptr);
 
         [DllImport(WandDll, CallingConvention = WandConvention)]
-        public static extern int MagickResizeImage(IntPtr ptr, uint columns, uint rows, int filterType, double blur);
+        public static extern int MagickResizeImage(IntPtr ptr, int columns, int rows, int filterType, double blur);
+
+        [DllImport(WandDll, CallingConvention = WandConvention)]
+        public static extern int MagickCropImage(IntPtr ptr, int width, int height, int x, int y);
+
+        [DllImport(WandDll, CallingConvention = WandConvention)]
+        public static extern int MagickGaussianBlurImage(IntPtr ptr, double radius, double sigma);
+
+        [DllImport(WandDll, CallingConvention = WandConvention)]
+        public static extern int MagickUnsharpMaskImage(IntPtr ptr, double radius, double sigma, double amount, double threshold);
 
         private static object isInitializedSyncRoot = new object();
         private static bool isInitialized = false;
