@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using System.Runtime.InteropServices;
 
 namespace NImageMagick
 {
@@ -13,9 +12,10 @@ namespace NImageMagick
 
         private static string DecodeException(IntPtr wandHandle)
         {
-            int exceptionSeverity = 0;
-            IntPtr exceptionPtr = ImageMagick.MagickGetException(wandHandle, ref exceptionSeverity);
-            return Marshal.PtrToStringAnsi(exceptionPtr);
+            int exceptionSeverity;
+            IntPtr exceptionPtr = ImageMagick.MagickGetException(wandHandle, out exceptionSeverity);
+            ImageMagick.MagickClearException(wandHandle);
+            return NativeString.Load(exceptionPtr);
         }
     }
 }

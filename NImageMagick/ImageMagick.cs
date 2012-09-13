@@ -32,7 +32,25 @@ namespace NImageMagick
         //public static extern int MagickGetExceptionType(IntPtr ptr);
 
         [DllImport(WandDll, CallingConvention = WandConvention)]
-        public static extern IntPtr MagickGetException(IntPtr ptr, ref int exceptionType);
+        public static extern IntPtr MagickGetException(IntPtr ptr, out int exceptionType);
+
+        [DllImport(WandDll, CallingConvention = WandConvention)]
+        public static extern int MagickClearException(IntPtr ptr);
+
+        [DllImport(WandDll, CallingConvention = WandConvention)]
+        public static extern uint MagickGetImageCompressionQuality(IntPtr ptr);
+
+        [DllImport(WandDll, CallingConvention = WandConvention)]
+        public static extern int MagickSetImageCompressionQuality(IntPtr ptr, uint quality);
+
+        [DllImport(WandDll, CallingConvention = WandConvention)]
+        public static extern uint MagickGetImageWidth(IntPtr ptr);
+
+        [DllImport(WandDll, CallingConvention = WandConvention)]
+        public static extern uint MagickGetImageHeight(IntPtr ptr);
+
+        [DllImport(WandDll, CallingConvention = WandConvention)]
+        public static extern int MagickResizeImage(IntPtr ptr, uint columns, uint rows, int filterType, double blur);
 
         private static object isInitializedSyncRoot = new object();
         private static bool isInitialized = false;

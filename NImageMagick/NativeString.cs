@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -22,6 +23,24 @@ namespace NImageMagick
         public void Dispose()
         {
             Marshal.FreeHGlobal(this.Pointer);
+        }
+
+        public static string Load(IntPtr pointer)
+        {
+            List<byte> bytes = new List<byte>();
+            byte[] buf = new byte[1];
+            int index = 0;
+            while (true)
+            {
+                Marshal.Copy(pointer + index, buf, 0, 1);
+                if (buf[0] == 0)
+                {
+                    break;
+                }
+                bytes.Add(buf[0]);
+                ++index;
+            }
+            return Encoding.UTF8.GetString(bytes.ToArray());
         }
     }
 }
