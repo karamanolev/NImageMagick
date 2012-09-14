@@ -25,7 +25,7 @@ namespace NImageMagick
             Marshal.FreeHGlobal(this.Pointer);
         }
 
-        public static string Load(IntPtr pointer)
+        public static string LoadAndRelinquish(IntPtr pointer)
         {
             List<byte> bytes = new List<byte>();
             byte[] buf = new byte[1];
@@ -40,6 +40,7 @@ namespace NImageMagick
                 bytes.Add(buf[0]);
                 ++index;
             }
+            ImageMagick.MagickRelinquishMemory(pointer);
             return Encoding.UTF8.GetString(bytes.ToArray());
         }
     }

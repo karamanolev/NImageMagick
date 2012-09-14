@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
 
 namespace NImageMagick
 {
@@ -27,9 +26,6 @@ namespace NImageMagick
 
         [DllImport(WandDll, CallingConvention = WandConvention)]
         public static extern IntPtr DestroyMagickWand(IntPtr ptr);
-
-        //[DllImport(WandDll, CallingConvention = WandConvention)]
-        //public static extern int MagickGetExceptionType(IntPtr ptr);
 
         [DllImport(WandDll, CallingConvention = WandConvention)]
         public static extern IntPtr MagickGetException(IntPtr ptr, out int exceptionType);
@@ -60,6 +56,27 @@ namespace NImageMagick
 
         [DllImport(WandDll, CallingConvention = WandConvention)]
         public static extern int MagickUnsharpMaskImage(IntPtr ptr, double radius, double sigma, double amount, double threshold);
+
+        [DllImport(WandDll, CallingConvention = WandConvention)]
+        public static extern IntPtr MagickGetImageFilename(IntPtr ptr);
+
+        [DllImport(WandDll, CallingConvention = WandConvention)]
+        public static extern IntPtr MagickGetImageFormat(IntPtr ptr);
+
+        [DllImport(WandDll, CallingConvention = WandConvention)]
+        public static extern int MagickSetImageFormat(IntPtr ptr, IntPtr format);
+
+        [DllImport(WandDll, CallingConvention = WandConvention)]
+        public static extern IntPtr CloneMagickWand(IntPtr ptr);
+
+        [DllImport(WandDll, CallingConvention = WandConvention)]
+        public static extern IntPtr MagickGetImageBlob(IntPtr ptr, out int length);
+
+        [DllImport(WandDll, CallingConvention = WandConvention)]
+        public static extern int MagickReadImageBlob(IntPtr ptr, IntPtr blob, int length);
+
+        [DllImport(WandDll, CallingConvention = WandConvention)]
+        public static extern int MagickRelinquishMemory(IntPtr resource);
 
         private static object isInitializedSyncRoot = new object();
         private static bool isInitialized = false;

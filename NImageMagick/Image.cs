@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Runtime.InteropServices;
 
 namespace NImageMagick
 {
@@ -11,7 +12,7 @@ namespace NImageMagick
         {
             get
             {
-                return (int)ImageMagick.MagickGetImageCompressionQuality(this.Handle);
+                return ImageMagick.MagickGetImageCompressionQuality(this.Handle);
             }
             set
             {
@@ -23,7 +24,7 @@ namespace NImageMagick
         {
             get
             {
-                return (int)ImageMagick.MagickGetImageWidth(this.Handle);
+                return ImageMagick.MagickGetImageWidth(this.Handle);
             }
         }
 
@@ -31,13 +32,37 @@ namespace NImageMagick
         {
             get
             {
-                return (int)ImageMagick.MagickGetImageHeight(this.Handle);
+                return ImageMagick.MagickGetImageHeight(this.Handle);
+            }
+        }
+
+        public string Filename
+        {
+            get
+            {
+                return NativeString.LoadAndRelinquish(ImageMagick.MagickGetImageFilename(this.Handle));
+            }
+        }
+
+        public string Format
+        {
+            get
+            {
+                return NativeString.LoadAndRelinquish(ImageMagick.MagickGetImageFormat(this.Handle));
+            }
+            set
+            {
+                using (var formatString = new NativeString(value))
+                {
+                    this.ExecuteChecked(ImageMagick.MagickSetImageFormat, formatString.Pointer);
+                }
             }
         }
 
         public Image(string path)
         {
             ImageMagick.EnsureInitialized();
+
             Handle = ImageMagick.NewMagickWand();
             if (Handle == IntPtr.Zero)
             {
@@ -48,6 +73,44 @@ namespace NImageMagick
             {
                 this.ExecuteChecked(ImageMagick.MagickReadImage, pathString.Pointer);
             }
+        }
+
+        public Image(byte[] blob)
+        {
+            ImageMagick.EnsureInitialized();
+
+            Handle = ImageMagick.NewMagickWand();
+            if (Handle == IntPtr.Zero)
+            {
+                throw new Exception("Error acquiring wand.");
+            }
+
+            IntPtr memory = Marshal.AllocHGlobal(blob.Length);
+            try
+            {
+                Marshal.Copy(blob, 0, memory, blob.Length);
+                this.ExecuteChecked(ImageMagick.MagickReadImageBlob, memory, blob.Length);
+            }
+            finally
+            {
+                Marshal.FreeHGlobal(memory);
+            }
+        }
+
+        public Image(Image image)
+        {
+            ImageMagick.EnsureInitialized();
+
+            Handle = ImageMagick.CloneMagickWand(image.Handle);
+            if (Handle == IntPtr.Zero)
+            {
+                throw new ImageMagickException(image.Handle);
+            }
+        }
+
+        ~Image()
+        {
+            this.Dispose();
         }
 
         public void ExecuteChecked<T>(Func<IntPtr, T, int> action, T param1)
@@ -100,6 +163,26 @@ namespace NImageMagick
         public void MagickUnsharpMaskImage(double radius, double sigma, double amount, double threshold)
         {
             this.ExecuteChecked(ImageMagick.MagickUnsharpMaskImage, radius, sigma, amount, threshold);
+        }
+
+        public byte[] GetBlob()
+        {
+            int length;
+            IntPtr blobPointer = ImageMagick.MagickGetImageBlob(this.Handle, out length);
+            if (blobPointer == IntPtr.Zero)
+            {
+                throw new ImageMagickException(this.Handle);
+            }
+            try
+            {
+                byte[] result = new byte[length];
+                Marshal.Copy(blobPointer, result, 0, length);
+                return result;
+            }
+            finally
+            {
+                ImageMagick.MagickRelinquishMemory(blobPointer);
+            }
         }
 
         public void Dispose()
