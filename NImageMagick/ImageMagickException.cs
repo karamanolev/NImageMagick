@@ -15,7 +15,7 @@ namespace NImageMagick
             int exceptionSeverity;
             IntPtr exceptionPtr = ImageMagick.MagickGetException(wandHandle, out exceptionSeverity);
             ImageMagick.MagickClearException(wandHandle);
-            return NativeString.LoadAndRelinquish(exceptionPtr);
+            return NativeString.Load(exceptionPtr);
         }
     }
 }

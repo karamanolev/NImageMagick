@@ -10,6 +10,9 @@ namespace Test
         [DllImport("kernel32", CharSet = CharSet.Auto)]
         private static extern bool SetDllDirectory(string fileName);
 
+        [DllImport("kernel32", CharSet = CharSet.Auto)]
+        private static extern bool LoadLibrary(string fileName);
+
         public static void LoadLibraries()
         {
             string path = Path.GetDirectoryName(typeof(LibraryLoader).Assembly.Location);

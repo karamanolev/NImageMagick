@@ -40,7 +40,7 @@ namespace NImageMagick
         {
             get
             {
-                return NativeString.LoadAndRelinquish(ImageMagick.MagickGetImageFilename(this.Handle));
+                return NativeString.Load(ImageMagick.MagickGetImageFilename(this.Handle));
             }
         }
 
@@ -48,7 +48,7 @@ namespace NImageMagick
         {
             get
             {
-                return NativeString.LoadAndRelinquish(ImageMagick.MagickGetImageFormat(this.Handle));
+                return NativeString.Load(ImageMagick.MagickGetImageFormat(this.Handle));
             }
             set
             {
