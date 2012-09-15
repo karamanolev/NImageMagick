@@ -143,7 +143,7 @@ namespace NImageMagick
             {
                 this.ExecuteChecked(ImageMagick.MagickWriteImage, pathString.Pointer);
             }
-        }
+        } 
 
         public void Resize(int width, int height, FilterType filterType, double blur)
         {

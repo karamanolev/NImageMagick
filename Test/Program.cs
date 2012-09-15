@@ -9,6 +9,9 @@ namespace Test
     {
         static void Main(string[] args)
         {
+            LibraryLoader.LoadLibraries();
+
+            Image image = new Image(@"C:\Temp\Images\CD.png");
         }
     }
 }
