@@ -160,7 +160,7 @@ namespace NImageMagick
             this.ExecuteChecked(ImageMagick.MagickGaussianBlurImage, radius, sigma);
         }
 
-        public void UnsharpMaskImage(double radius, double sigma, double amount, double threshold)
+        public void MagickUnsharpMaskImage(double radius, double sigma, double amount, double threshold)
         {
             this.ExecuteChecked(ImageMagick.MagickUnsharpMaskImage, radius, sigma, amount, threshold);
         }

@@ -84,9 +84,9 @@ namespace NImageMagick
             this.image.GaussianBlur(radius, sigma);
         }
 
-        public void UnsharpMask(double radius, double sigma, double amount, double threshold)
+        public void MagickUnsharpMaskImage(double radius, double sigma, double amount, double threshold)
         {
-            this.image.UnsharpMaskImage(radius, sigma, amount, threshold);
+            this.image.MagickUnsharpMaskImage(radius, sigma, amount, threshold);
         }
 
         public byte[] GetBlob()
