@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 
 namespace NImageMagick
 {
-    static class ImageMagick
+    public static class ImageMagick
     {
         internal const string WandDll = "CORE_RL_Wand_.dll";
         internal const CallingConvention WandConvention = CallingConvention.Cdecl;
@@ -84,15 +84,35 @@ namespace NImageMagick
         [DllImport(WandDll, CallingConvention = WandConvention)]
         internal static extern IntPtr MagickGetVersion(out int version);
 
-        public static string BinPath { get; set; }
-        public static string CodersModulePath { get; set; }
-        public static string FiltersModulePath { get; set; }
-
-        static ImageMagick()
+        public static string VersionString
         {
-            BinPath = ".";
-            CodersModulePath = ".";
-            FiltersModulePath = ".";
+            get
+            {
+                EnsureInitialized();
+
+                int version;
+                return NativeString.Load(MagickGetVersion(out version), false);
+            }
+        }
+
+        public static int VersionNumber
+        {
+            get
+            {
+                EnsureInitialized();
+
+                int version;
+                MagickGetVersion(out version);
+                return version;
+            }
+        }
+
+        public static string VersionNumberString
+        {
+            get
+            {
+                return string.Join(".", VersionNumber.ToString("x").ToArray());
+            }
         }
 
         private static object isInitializedSyncRoot = new object();
@@ -110,18 +130,6 @@ namespace NImageMagick
                     }
                 }
             }
-        }
-
-        internal static string ExtractVersionNumber()
-        {
-            int version;
-            MagickGetVersion(out version);
-            return string.Join(".", version.ToString("x").ToArray());
-        }
-
-        internal static void FreeString(IntPtr str)
-        {
-            Marshal.FreeHGlobal(str);
         }
     }
 }

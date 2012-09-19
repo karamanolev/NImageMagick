@@ -137,7 +137,7 @@ namespace NImageMagick
             }
         }
 
-        public void Save(string path)
+        public void Write(string path)
         {
             using (NativeString pathString = new NativeString(path))
             {
@@ -145,13 +145,21 @@ namespace NImageMagick
             }
         } 
 
-        public void Resize(int width, int height, FilterType filterType, double blur)
+        public void Resize(int width, int height, FilterType filterType = FilterType.LanczosSharpFilter, double blur = 1)
         {
             this.ExecuteChecked(ImageMagick.MagickResizeImage, width, height, (int)filterType, blur);
         }
 
         public void Crop(int width, int height, int x, int y)
         {
+            if (width <= 0)
+            {
+                width = this.Width - x - width;
+            }
+            if (height <= 0)
+            {
+                height = this.Height - y - height;
+            }
             this.ExecuteChecked(ImageMagick.MagickCropImage, width, height, x, y);
         }
 
