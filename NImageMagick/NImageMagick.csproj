@@ -49,6 +49,7 @@
     <Compile Include="Image.cs" />
     <Compile Include="ImageMagick.cs" />
     <Compile Include="ImageMagickException.cs" />
+    <Compile Include="MagickImage.cs" />
     <Compile Include="NativeString.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

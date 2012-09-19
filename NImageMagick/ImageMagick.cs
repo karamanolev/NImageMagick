@@ -84,6 +84,9 @@ namespace NImageMagick
         [DllImport(WandDll, CallingConvention = WandConvention)]
         internal static extern IntPtr MagickGetVersion(out int version);
 
+        [DllImport(WandDll, CallingConvention = WandConvention)]
+        internal static extern int MagickResetImagePage(IntPtr ptr, IntPtr page);
+
         public static string VersionString
         {
             get
