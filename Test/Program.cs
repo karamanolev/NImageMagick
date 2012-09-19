@@ -13,7 +13,7 @@ namespace Test
 
             Image image = new Image(@"C:\Temp\images\CD's.jpg");
             image.Crop(400, 400, 100, 100);
-            image.Crop(400, 400, 0, 0);
+            image.Crop(400, 390, 0, 10);
             image.Write("C:\\Temp\\images\\temp.jpg");
         }
     }

@@ -45,11 +45,17 @@ namespace NImageMagick
             this.image = new MagickImage(blob);
         }
 
+        /// <summary>
+        /// Copies the image into a new one.
+        /// </summary>
         public Image(Image image)
         {
             this.image = new MagickImage(image.image);
         }
 
+        /// <summary>
+        /// Creates a new Image instance using the same image as passed.
+        /// </summary>
         public Image(MagickImage image)
         {
             this.image = image;
@@ -137,12 +143,12 @@ namespace NImageMagick
             int prev = 0;
             foreach (int split in parts)
             {
-                Image crop = new Image(image);
+                Image crop = new Image(this);
                 crop.Crop(split - prev, this.Height, prev, 0);
                 images.Add(crop);
                 prev = split;
             }
-            Image lastCrop = new Image(image);
+            Image lastCrop = new Image(this);
             lastCrop.Crop(this.Width - prev, this.Height, prev, 0);
             images.Add(lastCrop);
             return images.ToArray();
