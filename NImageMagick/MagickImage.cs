@@ -4,10 +4,8 @@ using System.Runtime.InteropServices;
 
 namespace NImageMagick
 {
-    public class MagickImage : IDisposable
+    public class MagickImage : MagickBase, IDisposable
     {
-        public IntPtr Handle { get; private set; }
-
         public int ImageCompressionQuality
         {
             get
@@ -59,12 +57,20 @@ namespace NImageMagick
             }
         }
 
+        public bool Matte
+        {
+            set
+            {
+                this.ExecuteChecked(ImageMagick.MagickSetImageMatte, value ? 1 : 0);
+            }
+        }
+
         public MagickImage(string path)
         {
             ImageMagick.EnsureInitialized();
 
-            Handle = ImageMagick.NewMagickWand();
-            if (Handle == IntPtr.Zero)
+            this.Handle = ImageMagick.NewMagickWand();
+            if (this.Handle == IntPtr.Zero)
             {
                 throw new Exception("Error acquiring wand.");
             }
@@ -79,8 +85,8 @@ namespace NImageMagick
         {
             ImageMagick.EnsureInitialized();
 
-            Handle = ImageMagick.NewMagickWand();
-            if (Handle == IntPtr.Zero)
+            this.Handle = ImageMagick.NewMagickWand();
+            if (this.Handle == IntPtr.Zero)
             {
                 throw new Exception("Error acquiring wand.");
             }
@@ -101,40 +107,29 @@ namespace NImageMagick
         {
             ImageMagick.EnsureInitialized();
 
-            Handle = ImageMagick.CloneMagickWand(image.Handle);
-            if (Handle == IntPtr.Zero)
+            this.Handle = ImageMagick.CloneMagickWand(image.Handle);
+            if (this.Handle == IntPtr.Zero)
             {
                 throw new ImageMagickException(image.Handle);
             }
         }
 
+        public MagickImage(int width, int height, MagickPixelWand pixelWand) 
+        {
+            ImageMagick.EnsureInitialized();
+
+            this.Handle = ImageMagick.NewMagickWand();
+            if (this.Handle == IntPtr.Zero)
+            {
+                throw new Exception("Error acquiring wand.");
+            }
+
+            this.ExecuteChecked<int, int, IntPtr>(ImageMagick.MagickNewImage, width, height, pixelWand.Handle);
+        }
+
         ~MagickImage()
         {
             this.Dispose();
-        }
-
-        public void ExecuteChecked<T>(Func<IntPtr, T, int> action, T param1)
-        {
-            if (action(this.Handle, param1) != 1)
-            {
-                throw new ImageMagickException(this.Handle);
-            }
-        }
-
-        public void ExecuteChecked<T1, T2>(Func<IntPtr, T1, T2, int> action, T1 param1, T2 param2)
-        {
-            if (action(this.Handle, param1, param2) != 1)
-            {
-                throw new ImageMagickException(this.Handle);
-            }
-        }
-
-        public void ExecuteChecked<T1, T2, T3, T4>(Func<IntPtr, T1, T2, T3, T4, int> action, T1 param1, T2 param2, T3 param3, T4 param4)
-        {
-            if (action(this.Handle, param1, param2, param3, param4) != 1)
-            {
-                throw new ImageMagickException(this.Handle);
-            }
         }
 
         public void Write(string path)
@@ -171,6 +166,11 @@ namespace NImageMagick
             {
                 this.ExecuteChecked(ImageMagick.MagickResetImagePage, pageString.Pointer);
             }
+        }
+
+        public void CompositeImage(MagickImage sourceImage, CompositeOperator compose, int x, int y)
+        {
+            this.ExecuteChecked(ImageMagick.MagickCompositeImage, sourceImage.Handle, (int)compose, x, y);
         }
 
         public byte[] GetBlob()

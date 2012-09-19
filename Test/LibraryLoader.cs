@@ -13,7 +13,7 @@ namespace Test
         public static void LoadLibraries()
         {
             string path = Path.GetDirectoryName(typeof(LibraryLoader).Assembly.Location);
-            path = Path.Combine(path, "Libraries");
+            path = Path.Combine(path, "Libraries\\x86");
             SetDllDirectory(path);
         }
     }

@@ -35,6 +35,11 @@ namespace NImageMagick
             set { this.image.Format = value; }
         }
 
+        public bool Matte
+        {
+            set { this.image.Matte = value; }
+        }
+
         public Image(string path)
         {
             this.image = new MagickImage(path);
@@ -59,6 +64,11 @@ namespace NImageMagick
         public Image(MagickImage image)
         {
             this.image = image;
+        }
+
+        public Image(int width, int height, MagickPixelWand pixelWand)
+        {
+            this.image = new MagickImage(width, height, pixelWand);
         }
 
         public void Write(string path)
@@ -152,6 +162,16 @@ namespace NImageMagick
             lastCrop.Crop(this.Width - prev, this.Height, prev, 0);
             images.Add(lastCrop);
             return images.ToArray();
+        }
+
+        public void Composite(Image sourceImage, int x, int y)
+        {
+            this.Composite(sourceImage, CompositeOperator.OverCompositeOp, x, y);
+        }
+
+        public void Composite(Image sourceImage, CompositeOperator compose, int x, int y)
+        {
+            this.image.CompositeImage(sourceImage.image, compose, x, y);
         }
     }
 }

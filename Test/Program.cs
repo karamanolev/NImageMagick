@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using NImageMagick;
-using NImageMagick.Extensions;
 
 namespace Test
 {
@@ -11,10 +10,11 @@ namespace Test
         {
             LibraryLoader.LoadLibraries();
 
-            Image image = new Image(@"C:\Temp\images\CD's.jpg");
-            image.Crop(400, 400, 100, 100);
-            image.Crop(400, 390, 0, 10);
-            image.Write("C:\\Temp\\images\\temp.jpg");
+            Image image = new Image(500, 500, new MagickPixelWand()
+            {
+                Color = "none"
+            });
+            image.Write(@"C:\Temp\temp.png");
         }
     }
 }

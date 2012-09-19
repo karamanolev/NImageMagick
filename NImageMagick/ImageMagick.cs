@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Runtime.InteropServices;
+using Quantum = System.UInt16;
 
 namespace NImageMagick
 {
@@ -8,6 +9,8 @@ namespace NImageMagick
     {
         internal const string WandDll = "CORE_RL_Wand_.dll";
         internal const CallingConvention WandConvention = CallingConvention.Cdecl;
+
+        #region Magick Wand
 
         [DllImport(WandDll, CallingConvention = WandConvention)]
         internal static extern void MagickWandGenesis();
@@ -17,6 +20,9 @@ namespace NImageMagick
 
         [DllImport(WandDll, CallingConvention = WandConvention)]
         internal static extern IntPtr NewMagickWand();
+
+        [DllImport(WandDll, CallingConvention = WandConvention)]
+        internal static extern int MagickNewImage(IntPtr ptr, int columns, int rows, IntPtr background);
 
         [DllImport(WandDll, CallingConvention = WandConvention)]
         internal static extern int MagickReadImage(IntPtr image, IntPtr path);
@@ -38,6 +44,9 @@ namespace NImageMagick
 
         [DllImport(WandDll, CallingConvention = WandConvention)]
         internal static extern int MagickSetImageCompressionQuality(IntPtr ptr, int quality);
+
+        [DllImport(WandDll, CallingConvention = WandConvention)]
+        internal static extern int MagickSetImageMatte(IntPtr ptr, int matte);
 
         [DllImport(WandDll, CallingConvention = WandConvention)]
         internal static extern int MagickGetImageWidth(IntPtr ptr);
@@ -86,6 +95,90 @@ namespace NImageMagick
 
         [DllImport(WandDll, CallingConvention = WandConvention)]
         internal static extern int MagickResetImagePage(IntPtr ptr, IntPtr page);
+
+        [DllImport(WandDll, CallingConvention = WandConvention)]
+        internal static extern int MagickCompositeImage(IntPtr ptr, IntPtr sourcePtr, int compositeOperator, int x, int y);
+
+        #endregion
+
+        #region Pixel Wand
+
+        [DllImport(WandDll, CallingConvention = WandConvention)]
+        internal static extern IntPtr NewPixelWand();
+
+        [DllImport(WandDll, CallingConvention = WandConvention)]
+        internal static extern IntPtr DestroyPixelWand(IntPtr wand);
+
+        [DllImport(WandDll, CallingConvention = WandConvention)]
+        internal static extern int PixelSetColor(IntPtr wand, IntPtr color);
+
+        [DllImport(WandDll, CallingConvention = WandConvention)]
+        internal static extern IntPtr PixelGetColorAsString(IntPtr wand);
+
+        [DllImport(WandDll, CallingConvention = WandConvention)]
+        internal static extern IntPtr PixelGetColorAsNormalizedString(IntPtr wand);
+
+        [DllImport(WandDll, CallingConvention = WandConvention)]
+        internal static extern double PixelGetAlpha(IntPtr wand);
+
+        [DllImport(WandDll, CallingConvention = WandConvention)]
+        internal static extern void PixelSetAlpha(IntPtr wand, double value);
+
+        [DllImport(WandDll, CallingConvention = WandConvention)]
+        internal static extern double PixelGetOpacity(IntPtr wand);
+
+        [DllImport(WandDll, CallingConvention = WandConvention)]
+        internal static extern void PixelSetOpacity(IntPtr wand, double value);
+
+        [DllImport(WandDll, CallingConvention = WandConvention)]
+        internal static extern double PixelGetRed(IntPtr wand);
+
+        [DllImport(WandDll, CallingConvention = WandConvention)]
+        internal static extern void PixelSetRed(IntPtr wand, double value);
+
+        [DllImport(WandDll, CallingConvention = WandConvention)]
+        internal static extern double PixelGetGreen(IntPtr wand);
+
+        [DllImport(WandDll, CallingConvention = WandConvention)]
+        internal static extern void PixelSetGreen(IntPtr wand, double value);
+
+        [DllImport(WandDll, CallingConvention = WandConvention)]
+        internal static extern double PixelGetBlue(IntPtr wand);
+
+        [DllImport(WandDll, CallingConvention = WandConvention)]
+        internal static extern void PixelSetBlue(IntPtr wand, double value);
+
+        [DllImport(WandDll, CallingConvention = WandConvention)]
+        internal static extern Quantum PixelGetAlphaQuantum(IntPtr wand);
+
+        [DllImport(WandDll, CallingConvention = WandConvention)]
+        internal static extern void PixelSetAlphaQuantum(IntPtr wand, Quantum value);
+
+        [DllImport(WandDll, CallingConvention = WandConvention)]
+        internal static extern Quantum PixelGetOpacityQuantum(IntPtr wand);
+
+        [DllImport(WandDll, CallingConvention = WandConvention)]
+        internal static extern void PixelSetOpacityQuantum(IntPtr wand, Quantum value);
+
+        [DllImport(WandDll, CallingConvention = WandConvention)]
+        internal static extern Quantum PixelGetRedQuantum(IntPtr wand);
+
+        [DllImport(WandDll, CallingConvention = WandConvention)]
+        internal static extern void PixelSetRedQuantum(IntPtr wand, Quantum value);
+
+        [DllImport(WandDll, CallingConvention = WandConvention)]
+        internal static extern Quantum PixelGetGreenQuantum(IntPtr wand);
+
+        [DllImport(WandDll, CallingConvention = WandConvention)]
+        internal static extern void PixelSetGreenQuantum(IntPtr wand, Quantum value);
+
+        [DllImport(WandDll, CallingConvention = WandConvention)]
+        internal static extern Quantum PixelGetBlueQuantum(IntPtr wand);
+
+        [DllImport(WandDll, CallingConvention = WandConvention)]
+        internal static extern void PixelSetBlueQuantum(IntPtr wand, Quantum value);
+
+        #endregion
 
         public static string VersionString
         {

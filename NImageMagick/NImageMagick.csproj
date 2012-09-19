@@ -44,12 +44,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CompositeOperator.cs" />
     <Compile Include="Extensions\ImageExtensions.cs" />
     <Compile Include="FilterType.cs" />
     <Compile Include="Image.cs" />
     <Compile Include="ImageMagick.cs" />
     <Compile Include="ImageMagickException.cs" />
+    <Compile Include="MagickBase.cs" />
     <Compile Include="MagickImage.cs" />
+    <Compile Include="MagickPixelWand.cs" />
     <Compile Include="NativeString.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
