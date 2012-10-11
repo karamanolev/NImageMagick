@@ -197,5 +197,10 @@ namespace NImageMagick
         {
             this.Handle = ImageMagick.DestroyMagickWand(this.Handle);
         }
+
+        public void Rotate(MagickPixelWand pixelWand, double degrees)
+        {
+            this.ExecuteChecked(ImageMagick.MagickRotateImage, pixelWand.Handle, degrees);
+        }
     }
 }

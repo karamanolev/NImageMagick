@@ -99,6 +99,9 @@ namespace NImageMagick
         [DllImport(WandDll, CallingConvention = WandConvention)]
         internal static extern int MagickCompositeImage(IntPtr ptr, IntPtr sourcePtr, int compositeOperator, int x, int y);
 
+        [DllImport(WandDll, CallingConvention = WandConvention)]
+        internal static extern int MagickRotateImage(IntPtr ptr, IntPtr background, double degrees);
+
         #endregion
 
         #region Pixel Wand

@@ -173,5 +173,15 @@ namespace NImageMagick
         {
             this.image.CompositeImage(sourceImage.image, compose, x, y);
         }
+
+        public void Rotate(double degrees)
+        {
+            this.image.Rotate(new MagickPixelWand(), degrees);
+        }
+
+        public void Rotate(MagickPixelWand background, double degrees)
+        {
+            this.image.Rotate(background, degrees);
+        }
     }
 }
