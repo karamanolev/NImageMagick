@@ -71,10 +71,15 @@ namespace NImageMagick
             this.image = new MagickImage(width, height, pixelWand);
         }
 
+        private void ResetImagePage()
+        {
+            this.image.ResetImagePage("0x0+0+0");
+        }
+
         public void Write(string path)
         {
             this.image.Write(path);
-        } 
+        }
 
         public void Resize(int width, int height, FilterType filterType = FilterType.LanczosSharpFilter, double blur = 1)
         {
@@ -92,7 +97,7 @@ namespace NImageMagick
                 height = this.Height - y - height;
             }
             this.image.Crop(width, height, x, y);
-            this.image.ResetImagePage("0x0+0+0");
+            this.ResetImagePage();
         }
 
         public void GaussianBlur(double radius, double sigma)
@@ -129,9 +134,9 @@ namespace NImageMagick
             this.Resize(newWidth, newHeight, FilterType.CubicFilter, 1);
         }
 
-        private static int[] GetSplitEqualPoints(int size, int parts)
+        private static double[] GetSplitEqualPoints(int size, int parts)
         {
-            List<int> splits = new List<int>();
+            List<double> splits = new List<double>();
 
             for (int i = 1; i < parts; ++i)
             {
@@ -142,17 +147,23 @@ namespace NImageMagick
             return splits.ToArray();
         }
 
-        public Image[] SplitH(params int[] parts)
+        public Image[] SplitH(params double[] parts)
         {
-            if (parts.Length == 1 && parts[0] < 10)
+            if (parts.Length == 1 && parts[0] > 1 && parts[0] < 10)
             {
-                parts = GetSplitEqualPoints(this.Width, parts[0]);
+                parts = GetSplitEqualPoints(this.Width, (int)parts[0]);
+            }
+            else if (parts.All(p => p > 0 && p < 1))
+            {
+                parts = parts.Select(p => p * this.Width).ToArray();
             }
 
             List<Image> images = new List<Image>();
             int prev = 0;
-            foreach (int split in parts)
+            foreach (double _split in parts)
             {
+                int split = (int)Math.Round(_split);
+
                 Image crop = new Image(this);
                 crop.Crop(split - prev, this.Height, prev, 0);
                 images.Add(crop);
@@ -176,12 +187,13 @@ namespace NImageMagick
 
         public void Rotate(double degrees)
         {
-            this.image.Rotate(new MagickPixelWand(), degrees);
+            this.Rotate(new MagickPixelWand(), degrees);
         }
 
         public void Rotate(MagickPixelWand background, double degrees)
         {
             this.image.Rotate(background, degrees);
+            this.ResetImagePage();
         }
     }
 }
