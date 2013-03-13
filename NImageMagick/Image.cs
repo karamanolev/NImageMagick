@@ -210,5 +210,10 @@ namespace NImageMagick
         {
             this.image.Threshold(threshold);
         }
+
+        public void Colorspace(ColorspaceType colorspaceType)
+        {
+            this.image.Colorspace(colorspaceType);
+        }
     }
 }
