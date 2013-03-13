@@ -10,7 +10,7 @@ namespace NImageMagick
         BoxFilter,
         TriangleFilter,
         HermiteFilter,
-        HanningFilter,
+        HannFilter,
         HammingFilter,
         BlackmanFilter,
         GaussianFilter,
@@ -22,7 +22,7 @@ namespace NImageMagick
         SincFilter,
         SincFastFilter,
         KaiserFilter,
-        WelshFilter,
+        WelchFilter,
         ParzenFilter,
         BohmanFilter,
         BartlettFilter,
@@ -35,6 +35,7 @@ namespace NImageMagick
         RobidouxSharpFilter,
         CosineFilter,
         SplineFilter,
+        LanczosRadiusFilter,
         SentinelFilter  /* a count of all the filters, not a real filter */
     }
 }
