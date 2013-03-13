@@ -202,5 +202,10 @@ namespace NImageMagick
         {
             this.ExecuteChecked(ImageMagick.MagickRotateImage, pixelWand.Handle, degrees);
         }
+
+        public void Transparent(MagickPixelWand target, double alpha, double fuzz, bool invert)
+        {
+            this.ExecuteChecked(ImageMagick.MagickTransparentPaintImage, target.Handle, alpha, fuzz, invert ? 1 : 0);
+        }
     }
 }

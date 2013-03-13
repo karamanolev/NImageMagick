@@ -10,11 +10,18 @@ namespace Test
         {
             LibraryLoader.LoadLibraries();
 
-            Image image = new Image(@"C:\Temp\Music Database\Images\1.jpg");
+            // test split
+            Image image = new Image(@"C:\Temp\planet-hoth-wampas.jpg");
             Image[] parts = image.SplitH(100, 150);
             parts[0].Write(@"C:\Temp\temp1.png");
             parts[1].Write(@"C:\Temp\temp2.png");
             parts[2].Write(@"C:\Temp\temp3.png");
+
+            // test tranparent
+            MagickPixelWand target = new MagickPixelWand();
+            target.Color = "#ffffff";
+            image.Transparent(target, 0.0, 3276.8, false);
+            image.Write(@"C:\Temp\temp4.png");
         }
     }
 }
