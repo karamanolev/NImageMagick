@@ -205,5 +205,10 @@ namespace NImageMagick
         {
             this.image.Fill(target, fill, fuzz, invert);
         }
+
+        public void Threshold(double threshold)
+        {
+            this.image.Threshold(threshold);
+        }
     }
 }

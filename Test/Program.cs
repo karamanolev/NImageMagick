@@ -23,13 +23,17 @@ namespace Test
             image.Transparent(target, 0.0, 3276.8, false);
             image.Write(@"C:\Temp\temp4.png");
 
+            // test threshold
+            image.Threshold(32768.0);
+            image.Write(@"C:\Temp\temp5.png");
+
             // test fill
             target = new MagickPixelWand();
-            target.Color = "#030B30";
+            target.Color = "#000000";
             MagickPixelWand fill = new MagickPixelWand();
             fill.Color = "#267F00";
             image.Fill(target, fill, 3276.8, false);
-            image.Write(@"C:\Temp\temp5.png");
+            image.Write(@"C:\Temp\temp6.png");
         }
     }
 }

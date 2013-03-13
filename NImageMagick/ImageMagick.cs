@@ -108,6 +108,9 @@ namespace NImageMagick
         [DllImport(WandDll, CallingConvention = WandConvention)]
         internal static extern int MagickOpaquePaintImage(IntPtr wand, IntPtr target, IntPtr fill, double fuzz, int invert);
 
+        [DllImport(WandDll, CallingConvention = WandConvention)]
+        internal static extern int MagickThresholdImage(IntPtr wand, double threshold);
+
         #endregion
 
         #region Pixel Wand

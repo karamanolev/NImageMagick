@@ -212,5 +212,10 @@ namespace NImageMagick
         {
             this.ExecuteChecked(ImageMagick.MagickOpaquePaintImage, target.Handle, fill.Handle, fuzz, invert ? 1 : 0);
         }
+
+        public void Threshold(double threshold)
+        {
+            this.ExecuteChecked(ImageMagick.MagickThresholdImage, threshold);
+        }
     }
 }
