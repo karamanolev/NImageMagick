@@ -112,6 +112,9 @@ namespace NImageMagick
         internal static extern int MagickThresholdImage(IntPtr wand, double threshold);
 
         [DllImport(WandDll, CallingConvention = WandConvention)]
+        internal static extern int MagickAdaptiveThresholdImage(IntPtr wand, int width, int height, double bias);
+
+        [DllImport(WandDll, CallingConvention = WandConvention)]
         internal static extern int MagickTransformImageColorspace(IntPtr wand, int colorspaceType);
 
         #endregion

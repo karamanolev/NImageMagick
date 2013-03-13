@@ -211,6 +211,11 @@ namespace NImageMagick
             this.image.Threshold(threshold);
         }
 
+        public void AdaptiveThreshold(int width, int height, double bias)
+        {
+            this.image.AdaptiveThreshold(width, height, bias);
+        }
+
         public void Colorspace(ColorspaceType colorspaceType)
         {
             this.image.Colorspace(colorspaceType);

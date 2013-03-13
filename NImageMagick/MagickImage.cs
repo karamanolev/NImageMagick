@@ -218,6 +218,11 @@ namespace NImageMagick
             this.ExecuteChecked(ImageMagick.MagickThresholdImage, threshold);
         }
 
+        public void AdaptiveThreshold(int width, int height, double bias)
+        {
+            this.ExecuteChecked(ImageMagick.MagickAdaptiveThresholdImage, width, height, bias);
+        }
+
         public void Colorspace(ColorspaceType colorspaceType)
         {
             this.ExecuteChecked(ImageMagick.MagickTransformImageColorspace, (int)colorspaceType);
