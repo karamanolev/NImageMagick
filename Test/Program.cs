@@ -38,6 +38,10 @@ namespace Test
             fill.Color = "#267F00";
             image.Fill(target, fill, 3276.8, false);
             image.Write(@"C:\Temp\temp7.png");
+
+            //test resize
+            image.Resize(100, 88, FilterType.PointFilter);
+            image.Write(@"C:\Temp\temp8.png");
         }
     }
 }

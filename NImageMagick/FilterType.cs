@@ -5,7 +5,7 @@ namespace NImageMagick
 {
     public enum FilterType
     {
-        UndefinedFilter,
+        UndefinedFilter = -1,
         PointFilter,
         BoxFilter,
         TriangleFilter,
