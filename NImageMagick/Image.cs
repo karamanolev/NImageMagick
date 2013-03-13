@@ -200,5 +200,10 @@ namespace NImageMagick
         {
             this.image.Transparent(target, alpha, fuzz, invert);
         }
+
+        public void Fill(MagickPixelWand target, MagickPixelWand fill, double fuzz, bool invert)
+        {
+            this.image.Fill(target, fill, fuzz, invert);
+        }
     }
 }

@@ -207,5 +207,10 @@ namespace NImageMagick
         {
             this.ExecuteChecked(ImageMagick.MagickTransparentPaintImage, target.Handle, alpha, fuzz, invert ? 1 : 0);
         }
+
+        public void Fill(MagickPixelWand target, MagickPixelWand fill, double fuzz, bool invert)
+        {
+            this.ExecuteChecked(ImageMagick.MagickOpaquePaintImage, target.Handle, fill.Handle, fuzz, invert ? 1 : 0);
+        }
     }
 }
