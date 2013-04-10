@@ -220,5 +220,15 @@ namespace NImageMagick
         {
             this.image.Colorspace(colorspaceType);
         }
+
+        public void Quantize(int numberColors, ColorspaceType colorspaceType, int treeDepth, DitherMethod ditherMethod, bool measureError)
+        {
+            this.image.QuantizeImage(numberColors, colorspaceType, treeDepth, ditherMethod, measureError);
+        }
+
+        public void Normalize()
+        {
+            this.image.NormalizeImage();
+        }
     }
 }

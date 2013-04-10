@@ -117,6 +117,12 @@ namespace NImageMagick
         [DllImport(WandDll, CallingConvention = WandConvention)]
         internal static extern int MagickTransformImageColorspace(IntPtr wand, int colorspaceType);
 
+        [DllImport(WandDll, CallingConvention = WandConvention)]
+        internal static extern int MagickQuantizeImage(IntPtr wand, int number_colors, int colorsapceType, int treedepth, int dither_method, int measure_error);
+
+        [DllImport(WandDll, CallingConvention = WandConvention)]
+        internal static extern int MagickNormalizeImage(IntPtr wand);
+
         #endregion
 
         #region Pixel Wand

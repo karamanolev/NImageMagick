@@ -7,6 +7,14 @@ namespace NImageMagick
     {
         public IntPtr Handle { get; protected set; }
 
+        public void ExecuteChecked(Func<IntPtr, int> action)
+        {
+            if (action(this.Handle) != 1)
+            {
+                throw new ImageMagickException(this.Handle);
+            }
+        }
+
         public void ExecuteChecked<T>(Func<IntPtr, T, int> action, T param1)
         {
             if (action(this.Handle, param1) != 1)
@@ -23,6 +31,14 @@ namespace NImageMagick
             }
         }
 
+        public void ExecuteChecked<T1, T2, T3>(Func<IntPtr, T1, T2, T3, int> action, T1 param1, T2 param2, T3 param3)
+        {
+            if (action(this.Handle, param1, param2, param3) != 1)
+            {
+                throw new ImageMagickException(this.Handle);
+            }
+        }
+
         public void ExecuteChecked<T1, T2, T3, T4>(Func<IntPtr, T1, T2, T3, T4, int> action, T1 param1, T2 param2, T3 param3, T4 param4)
         {
             if (action(this.Handle, param1, param2, param3, param4) != 1)
@@ -31,9 +47,9 @@ namespace NImageMagick
             }
         }
 
-        public void ExecuteChecked<T1, T2, T3>(Func<IntPtr, T1, T2, T3, int> action, T1 param1, T2 param2, T3 param3)
+        public void ExecuteChecked<T1, T2, T3, T4, T5>(Func<IntPtr, T1, T2, T3, T4, T5, int> action, T1 param1, T2 param2, T3 param3, T4 param4, T5 param5)
         {
-            if (action(this.Handle, param1, param2, param3) != 1)
+            if (action(this.Handle, param1, param2, param3, param4, param5) != 1)
             {
                 throw new ImageMagickException(this.Handle);
             }
