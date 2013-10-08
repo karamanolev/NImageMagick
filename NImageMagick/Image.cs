@@ -195,5 +195,40 @@ namespace NImageMagick
             this.image.Rotate(background, degrees);
             this.ResetImagePage();
         }
+
+        public void Transparent(MagickPixelWand target, double alpha, double fuzz, bool invert)
+        {
+            this.image.Transparent(target, alpha, fuzz, invert);
+        }
+
+        public void Fill(MagickPixelWand target, MagickPixelWand fill, double fuzz, bool invert)
+        {
+            this.image.Fill(target, fill, fuzz, invert);
+        }
+
+        public void Threshold(double threshold)
+        {
+            this.image.Threshold(threshold);
+        }
+
+        public void AdaptiveThreshold(int width, int height, double bias)
+        {
+            this.image.AdaptiveThreshold(width, height, bias);
+        }
+
+        public void Colorspace(ColorspaceType colorspaceType)
+        {
+            this.image.Colorspace(colorspaceType);
+        }
+
+        public void Quantize(int numberColors, ColorspaceType colorspaceType, int treeDepth, DitherMethod ditherMethod, bool measureError)
+        {
+            this.image.QuantizeImage(numberColors, colorspaceType, treeDepth, ditherMethod, measureError);
+        }
+
+        public void Normalize()
+        {
+            this.image.NormalizeImage();
+        }
     }
 }

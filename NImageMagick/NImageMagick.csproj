@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ColorspaceType.cs" />
     <Compile Include="CompositeOperator.cs" />
     <Compile Include="Extensions\ImageExtensions.cs" />
     <Compile Include="FilterType.cs" />

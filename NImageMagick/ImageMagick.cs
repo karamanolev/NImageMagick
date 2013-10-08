@@ -102,6 +102,27 @@ namespace NImageMagick
         [DllImport(WandDll, CallingConvention = WandConvention)]
         internal static extern int MagickRotateImage(IntPtr ptr, IntPtr background, double degrees);
 
+        [DllImport(WandDll, CallingConvention = WandConvention)]
+        internal static extern int MagickTransparentPaintImage(IntPtr wand, IntPtr target, double alpha, double fuzz, int invert);
+
+        [DllImport(WandDll, CallingConvention = WandConvention)]
+        internal static extern int MagickOpaquePaintImage(IntPtr wand, IntPtr target, IntPtr fill, double fuzz, int invert);
+
+        [DllImport(WandDll, CallingConvention = WandConvention)]
+        internal static extern int MagickThresholdImage(IntPtr wand, double threshold);
+
+        [DllImport(WandDll, CallingConvention = WandConvention)]
+        internal static extern int MagickAdaptiveThresholdImage(IntPtr wand, int width, int height, double bias);
+
+        [DllImport(WandDll, CallingConvention = WandConvention)]
+        internal static extern int MagickTransformImageColorspace(IntPtr wand, int colorspaceType);
+
+        [DllImport(WandDll, CallingConvention = WandConvention)]
+        internal static extern int MagickQuantizeImage(IntPtr wand, int number_colors, int colorsapceType, int treedepth, int dither_method, int measure_error);
+
+        [DllImport(WandDll, CallingConvention = WandConvention)]
+        internal static extern int MagickNormalizeImage(IntPtr wand);
+
         #endregion
 
         #region Pixel Wand

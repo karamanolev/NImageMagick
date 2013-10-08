@@ -202,5 +202,40 @@ namespace NImageMagick
         {
             this.ExecuteChecked(ImageMagick.MagickRotateImage, pixelWand.Handle, degrees);
         }
+
+        public void Transparent(MagickPixelWand target, double alpha, double fuzz, bool invert)
+        {
+            this.ExecuteChecked(ImageMagick.MagickTransparentPaintImage, target.Handle, alpha, fuzz, invert ? 1 : 0);
+        }
+
+        public void Fill(MagickPixelWand target, MagickPixelWand fill, double fuzz, bool invert)
+        {
+            this.ExecuteChecked(ImageMagick.MagickOpaquePaintImage, target.Handle, fill.Handle, fuzz, invert ? 1 : 0);
+        }
+
+        public void Threshold(double threshold)
+        {
+            this.ExecuteChecked(ImageMagick.MagickThresholdImage, threshold);
+        }
+
+        public void AdaptiveThreshold(int width, int height, double bias)
+        {
+            this.ExecuteChecked(ImageMagick.MagickAdaptiveThresholdImage, width, height, bias);
+        }
+
+        public void Colorspace(ColorspaceType colorspaceType)
+        {
+            this.ExecuteChecked(ImageMagick.MagickTransformImageColorspace, (int)colorspaceType);
+        }
+
+        public void QuantizeImage(int numberColors, ColorspaceType colorspaceType, int treeDepth,  DitherMethod ditherMethod, bool measureError)
+        {
+            this.ExecuteChecked(ImageMagick.MagickQuantizeImage, numberColors, (int)colorspaceType, treeDepth, (int)ditherMethod, measureError ? 1 : 0);
+        }
+
+        public void NormalizeImage()
+        {
+            this.ExecuteChecked(ImageMagick.MagickNormalizeImage);
+        }
     }
 }
